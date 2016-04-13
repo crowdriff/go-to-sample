@@ -1,11 +1,15 @@
 language: go
+
 go:
 - 1.6
+
 install:
 - make tools
 - make deps
+
 script:
 - make test
+
 deploy:
 - provider: s3
   access_key_id: AKIAIO62GPQG6JTL3KMQ
@@ -25,6 +29,8 @@ deploy:
   application: go-to-sample
   deployment_group: dev
   on: *2
+
 before_deploy:
+- zip go-to-sample bin/*.bin
 - mkdir -p dpl_cd_upload
-- mv go-to-sample.zip dpl_cd_upload/go-to-sample.zip
+- mv bin/go-to-sample.zip dpl_cd_upload/go-to-sample.zip
