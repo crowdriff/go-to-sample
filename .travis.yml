@@ -1,0 +1,18 @@
+language: go
+
+go:
+  - 1.6
+
+install:
+  - make tools
+  - make deps
+
+script:
+  - make test
+
+deploy:
+  provider: script
+  script: scripts/travis-deploy-hook.sh
+  on:
+    branch: prod
+    go: 1.6
