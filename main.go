@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"golang.org/x/net/context"
-
 	"github.com/pressly/chi"
 	"github.com/pressly/chi/middleware"
 )
@@ -24,16 +22,16 @@ func main() {
 	r.Use(middleware.Logger)
 
 	// Mount handlers
-	r.Get("/version", defaultHandler)
-	r.Get("/", defaultHandler)
+	r.Get("/version", DefaultHandler)
+	r.Get("/", DefaultHandler)
 	log.Printf("Server (v%s) listening on %s\n", version, iface)
 	http.ListenAndServe(iface, r)
 }
 
 // DefaultHandler returns the standard Service and Status response.
-func defaultHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, fmt.Sprintf(`{
 		"meta": {"code": 200},
-		"data": {"service": "go-to-sample", "version": "%s" }
+		"data": {"service": "go-to-sample", "version": "%s"}
 	}`, version))
 }
