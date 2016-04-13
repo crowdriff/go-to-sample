@@ -8,6 +8,7 @@ install:
 - make deps
 
 script:
+- make build
 - make test
 
 deploy:
@@ -31,7 +32,9 @@ deploy:
   on: *2
 
 before_deploy:
-- make build
-- zip go-to-sample bin/*.bin
+- mv bin/*.bin bin/go-to-sample.bin
+- cp scripts/appspec.yml bin/
+- cp scripts/deploy-*.sh bin/
+- zip go-to-sample bin/*
 - mkdir -p dpl_cd_upload
 - mv go-to-sample.zip dpl_cd_upload/go-to-sample.zip

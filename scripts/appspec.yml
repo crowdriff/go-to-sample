@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /tmp/go-to-sample/
+hooks:
+  BeforeInstall:
+    - location: deploy-before-install.sh
+      runas: ubuntu
+  AfterInstall:
+    - location: deploy-after-install.sh
+      runas: ubuntu
