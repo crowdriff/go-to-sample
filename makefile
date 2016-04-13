@@ -18,7 +18,7 @@ all:
 build: clean
 	@go vet ./...
 	@golint ./...
-	@go build -o ./bin/go-to-sample-$(version).bin -ldflags "-X main.version=$(version)" main.go
+	@go build -o ./bin/go-to-sample.bin -ldflags "-X main.version=$(version)" main.go
 
 clean:
 	@rm -rf ./bin
