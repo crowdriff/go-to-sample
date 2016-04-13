@@ -34,7 +34,6 @@ deploy:
 before_deploy:
 - cp scripts/appspec.yml bin/
 - cp scripts/deploy-*.sh bin/
-- zip go-to-sample bin/*
+- cd bin && zip go-to-sample * && cd ..
 - mkdir -p dpl_cd_upload
-- mv go-to-sample.zip dpl_cd_upload/go-to-sample.zip
-
+- mv bin/go-to-sample.zip dpl_cd_upload/go-to-sample.zip
