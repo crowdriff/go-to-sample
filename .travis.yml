@@ -32,10 +32,9 @@ deploy:
   on: *2
 
 before_deploy:
-- mv bin/*.bin bin/go-to-sample.bin
 - cp scripts/appspec.yml bin/
 - cp scripts/deploy-*.sh bin/
 - zip go-to-sample bin/*
 - mkdir -p dpl_cd_upload
 - mv go-to-sample.zip dpl_cd_upload/go-to-sample.zip
-- chmod 777 dpl_cd_upload/go-to-sample.zip
+
