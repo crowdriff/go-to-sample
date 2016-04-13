@@ -31,6 +31,7 @@ deploy:
   on: *2
 
 before_deploy:
+- make build
 - zip go-to-sample bin/*.bin
 - mkdir -p dpl_cd_upload
 - mv bin/go-to-sample.zip dpl_cd_upload/go-to-sample.zip
