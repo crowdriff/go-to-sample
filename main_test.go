@@ -13,21 +13,24 @@ import (
 )
 
 var _ = Describe("Main", func() {
-	It("should return some nice JSON", func() {
-		server := httptest.NewServer(http.HandlerFunc(DefaultHandler))
-		defer server.Close()
+	Context("DefaultHandler", func() {
+		It("should return some nice JSON", func() {
+			server := httptest.NewServer(http.HandlerFunc(DefaultHandler))
+			defer server.Close()
 
-		res, err := http.Get(server.URL)
-		if err != nil {
-			log.Fatal(err)
-		}
+			res, err := http.Get(server.URL)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-		defer res.Body.Close()
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
+			defer res.Body.Close()
+			body, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-		Ω(string(body)).Should(ContainSubstring("go-to-sample"))
+			Ω(string(body)).Should(ContainSubstring("go-to-sample"))
+		})
 	})
+
 })

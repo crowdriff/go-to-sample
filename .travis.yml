@@ -1,18 +1,30 @@
 language: go
-
 go:
-  - 1.6
-
+- 1.6
 install:
-  - make tools
-  - make deps
-
+- make tools
+- make deps
 script:
-  - make test
-
+- make test
 deploy:
-  provider: script
-  script: scripts/travis-deploy-hook.sh
-  on:
-    branch: prod
-    go: 1.6
+- provider: s3
+  access_key_id: AKIAIO62GPQG6JTL3KMQ
+  secret_access_key: &1
+    secure: M+M0+7W3JErqYgAC2JzqBLTiiujGtuBcXPOFU+k401EsgRW1zSmczITy2Q+mYKbA1VoiLofLoCSlvGVcKZwbZT4moAvItvGCo/nqPAbfv2t/V4DRIbMJPpFAn3RgCdoLQ/lu7JnZx2V02Nb/r0plZuMGeSrPZxNhymqfPduOWTRVTx19BFO70U5Lv7whJaqpm707QIdvyf2Arv6TCS7fZp4+JP8rCVp+PI1OM+hd10+o83Q7siPIaZOZeshaUTbLAYoXR7HeYJg21ZaUPD9EhRnjQMv8svCbWhLJWcPRhhl0fXMQ0GdWJ36/VaCjSxBFH4EoXocnEthJ901UR8J4pteduXL3RGBi8fHzLz0kDHzAbuS7dsSEIZmLf+WqvggotEzGbKmncnm8hecOYNSmaORHc+R3r8sQSxljVP2kJeFZLANfZN4a5X2N4e8zK8mRWTT26pIpwiZ1ACUA05mHLWceXMAxBrGDDHnZlS2Ad4dozo8VpYtcRmMmZSLHMrsUNv4/vzUz6sjCh2q+QmyOGoBsME0hKY/ldmDuil0V6ZBTFKDKTyWBZjYeZ/YNqjfrGZ5xEd+iqNHAqBYPbJpkJsQuDVMGVHQv3ItRUCHP6gX+h/IxAIm5U24of6HeHZT/PP3RP8qH5Z+o3gN9Vn5DDYmdvjOAKdTyTZ90B6jKPX0=
+  local_dir: dpl_cd_upload
+  skip_cleanup: true
+  on: &2
+    repo: crowdriff/go-to-sample
+  bucket: crowdriff-go-to-sample
+- provider: codedeploy
+  access_key_id: AKIAIO62GPQG6JTL3KMQ
+  secret_access_key: *1
+  bucket: crowdriff-go-to-sample
+  key: go-to-sample.zip
+  bundle_type: zip
+  application: go-to-sample
+  deployment_group: dev
+  on: *2
+before_deploy:
+- mkdir -p dpl_cd_upload
+- mv go-to-sample.zip dpl_cd_upload/go-to-sample.zip
