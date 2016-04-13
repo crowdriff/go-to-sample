@@ -12,7 +12,7 @@ import (
 // version is dynamically loaded from the Makefile at compile time.
 var version string
 
-const iface = "127.0.0.1:5000"
+const iface = "0.0.0.0:5000"
 
 func main() {
 	// Create router & add middleware
